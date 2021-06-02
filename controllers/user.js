@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-err');
 const ConfictMongoError = require('../errors/confict-mongo-err');
-
-const { JWT_SECRET = 'dev-key' } = process.env;
+const { JWT_SECRET } = require('../config');
 
 // GET
 module.exports.getMyUser = (req, res, next) => {
@@ -13,7 +12,10 @@ module.exports.getMyUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
-      return res.status(200).send(user);
+      return res.status(200).send({
+        name: user.name,
+        email: user.email,
+      });
     })
     .catch(next);
 };
