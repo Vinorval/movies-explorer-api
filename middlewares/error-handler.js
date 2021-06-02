@@ -1,9 +1,11 @@
+const { validation, serverError, castError, validationError } = require('../utils');
+
 module.exports = (err, req, res, next) => {
-  if (err.name === 'CastError' || err.name === 'ValidationError' || err.statusCode === 400) {
+  if (err.name === castError || err.name === validationError || err.statusCode === 400) {
     res
       .status(400)
       .send({
-        message: 'Переданы некорректные данные',
+        message: validation,
       });
   } if (err.name === null) { next(); }
 
@@ -12,7 +14,7 @@ module.exports = (err, req, res, next) => {
     .status(statusCode)
     .send({
       message: statusCode === 500
-        ? 'На сервере произошла ошибка'
+        ? serverError
         : message,
     });
 };

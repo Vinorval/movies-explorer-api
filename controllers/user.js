@@ -4,13 +4,14 @@ const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-err');
 const ConfictMongoError = require('../errors/confict-mongo-err');
 const { JWT_SECRET } = require('../config');
+const { userIdNotFound, confictEmail } = require('../utils');
 
 // GET
 module.exports.getMyUser = (req, res, next) => {
   User.findById(req.user)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Пользователь по указанному _id не найден');
+        throw new NotFoundError(userIdNotFound);
       }
       return res.status(200).send({
         name: user.name,
@@ -34,7 +35,7 @@ module.exports.updateProfil = (req, res, next) => {
   )
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Пользователь по указанному _id не найден');
+        throw new NotFoundError(userIdNotFound);
       }
       return res.status(200).send(user);
     })
@@ -51,7 +52,7 @@ module.exports.createUser = (req, res, next) => {
 
   User.findOne({ email })
     .then((user) => {
-      if (!(user === null)) throw new ConfictMongoError('Пользователь по указанному email уже существует');
+      if (!(user === null)) throw new ConfictMongoError(confictEmail);
     })
     .then(() => bcrypt.hash(password, 10))
     .then((hash) => User.create({
