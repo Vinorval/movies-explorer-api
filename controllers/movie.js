@@ -1,7 +1,7 @@
 const Movie = require('../models/movie');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
-const { movieIdNotFound, errorDelete, } = require('../utils');
+const { movieIdNotFound, errorDelete } = require('../utils');
 
 // GET
 module.exports.getMovies = (req, res, next) => {

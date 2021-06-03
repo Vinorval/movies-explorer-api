@@ -26,4 +26,4 @@ module.exports = {
   emailNotValid,
   emailOrPasswordNotTrue,
   errorNotFound,
-}
+};

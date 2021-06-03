@@ -1,8 +1,13 @@
-const { validation, serverError, castError, validationError } = require('../utils');
+const {
+  validation,
+  serverError,
+  castError,
+  validationError,
+} = require('../utils');
 
 module.exports = (err, req, res, next) => {
-  if (err.name === castError || err.name === validationError || err.statusCode === 400) {
-    res
+  if (err.statusCode === 400 || err.name === castError || err.name === validationError) {
+    return res
       .status(400)
       .send({
         message: validation,
