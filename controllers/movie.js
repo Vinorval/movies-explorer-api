@@ -1,7 +1,8 @@
 const Movie = require('../models/movie');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
-const { movieIdNotFound, errorDelete } = require('../utils');
+const ConfictMongoError = require('../errors/confict-mongo-err');
+const { movieIdNotFound, errorDelete, confictMovieId } = require('../utils');
 
 // GET
 module.exports.getMovies = (req, res, next) => {
@@ -28,20 +29,26 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
   } = req.body;
 
-  Movie.create({
-    owner: req.user._id,
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailer,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN,
-  })
+  Movie.findOne({ movieId })
+    .then((movie) => {
+      if (!(movie === null)) throw new ConfictMongoError(confictMovieId);
+    })
+    .then(() => {
+      Movie.create({
+        owner: req.user._id,
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image,
+        trailer,
+        thumbnail,
+        movieId,
+        nameRU,
+        nameEN,
+      });
+    })
     .then((movie) => res.status(200).send(movie))
     .catch(next);
 };
