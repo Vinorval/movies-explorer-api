@@ -105,12 +105,9 @@ const newMoviecreate = celebrate({
 });
 
 const movieDelete = celebrate({
-  body: Joi.object().keys({
-    movieId: Joi.string().hex().length(24)
-      .messages({
-        'string.length': 'Неверный id',
-      }),
-  }).unknown(true),
+  params: Joi.object().keys({
+    movieId: Joi.number(),
+  }),
 });
 
 module.exports = {
