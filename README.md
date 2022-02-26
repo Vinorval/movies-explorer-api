@@ -14,12 +14,12 @@
   3. Express.js
 
 ## Как локально запустить проект
-1. Для начало с помощью командой git clone https://github.com/Vinorval/movies-explorer-api.git загрузить себе код.
-2. Проверить, что у вас есть приложение MongoDB (Если нет,то можно загрузить:
+1. Для начало с помощью командой `git clone https://github.com/Vinorval/movies-explorer-api.git` загрузить себе код.
+2. Проверить, что у вас есть приложение `MongoDB` (Если нет,то можно загрузить:
   * для Windows - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#install-mdb-edition 
   * для MacOS - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/  
   * для Linux - https://docs.mongodb.com/manual/administration/install-on-linux/
 )
-3. Далее загрузить все библиотеки, которые описаны в файле package.json. Лучше всего воспользоваться командой npm init
-4. В терменале запустите базу данных MongoBD командой mongod 
-5. Остается только запустить сам сервер командой npm start
+3. Далее загрузить все библиотеки, которые описаны в файле `package.json`. Лучше всего воспользоваться командой `npm init`
+4. В терменале запустите базу данных `MongoBD` командой mongod 
+5. Остается только запустить сам сервер командой `npm start`
